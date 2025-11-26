@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Compari Preturi Online",
+    "version": "1.0",
+    "description": "Extensie pentru compararea preturilor produselor online.",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs",
+        "scripting"
+    ],
+    "action":{
+        "default_popup": "popup.html"
+    },
+    "background":{
+        "service_worker": "background.js"
+    }
+}
