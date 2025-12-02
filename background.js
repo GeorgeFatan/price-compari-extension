@@ -1,18 +1,24 @@
+const send = require("send");
+
 console.log("Background script pornit");
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if(request.action === "searchProduct"){
         const code = request.code;
 
-        // simulam cu date fictive
-        const results = [
-          { name: "Laptop Lenovo", price: "2999 RON", site: "eMAG" },
-          { name: "Laptop Lenovo", price: "2899 RON", site: "Altex" },
-          { name: "Laptop Lenovo", price: "2950 RON", site: "Flanco" }
+        fetch(`https://localhost:3000/search?name=${encodeURIComponent(code)}`)
+        .then(response => response.json())
+        .then(data => {
+          sendResponse(data);
+        })
 
-        ];
-        sendResponse(results);
+        .catch(error => {
+           console.error("Eroare la comunicarea cu serverul:", error);
+           sendResponse([]);
+        });
+        
+        return true; // Indică faptul că răspunsul va fi asincron
     }
-    return true; // Indică că vom răspunde asincron
+   
 
 });

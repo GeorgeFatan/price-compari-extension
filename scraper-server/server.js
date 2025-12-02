@@ -7,13 +7,13 @@ const PORT = 3000;
 
 app.get("/search", async (req, res) => {
     const name = req.query.name;
-    console.log("Cerere primită pentru produs:", name);
+    console.log("Cerere primita pentru produs:", name);
 
     const results = [];
 
     // eMAG
     try {
-        console.log("Caut pe eMAG...");
+        console.log("Caut pe eMAG.ro.");
         const emagURL = `https://www.emag.ro/search/${encodeURIComponent(name)}`;
         const emagHtml = await fetch(emagURL).then(response => response.text());
         const $emag = cheerio.load(emagHtml);
@@ -30,12 +30,12 @@ app.get("/search", async (req, res) => {
     }
 
     if (results.length === 0) {
-        results.push({ site: "N/A", name: "Produsul nu a fost găsit", price: "-" });
+        results.push({ site: "N/A", name: "Produsul nu a fost gasit", price: "-" });
     }
 
     res.json(results);
 });
 
 app.listen(PORT, () => {
-    console.log(`Serverul rulează la http://localhost:${PORT}`);
+    console.log(`Serverul ruleaza la http://localhost:${PORT}`);
 });
